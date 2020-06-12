@@ -1,0 +1,117 @@
+{% extends 'home/home.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{% static 'images/download.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3 class="card-title">{{user.first_name}}&nbsp;&nbsp;{{user.last_name}}</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="fa fa-home"></i>&nbsp;&nbsp;Malappuram</li>
+                <li class="list-group-item"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Khaleel@gmail.com</li>
+                <li class="list-group-item"><i class="fa fa-phone"></i>&nbsp;&nbsp;8943992977</li>
+                <li class="list-group-item"><i class="fa fa-user"></i>&nbsp;&nbsp;Student</li>
+                <li class="list-group-item"><i class="fa fa-university"></i>&nbsp;&nbsp;</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-title">
+                <h4><i class="fa fa-address-card"></i>More Information</h4>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Edit
+                </button>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa fa-university"></i>&nbsp;&nbsp;University</li>
+                    <li class="list-group-item"><i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;College</li>
+                    <li class="list-group-item"><i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;School</li>
+                    <li class="list-group-item"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Address</li>
+                    <li class="list-group-item"><i class="fa fa-mars"></i>&nbsp;&nbsp;Gender</li>
+                    <li class="list-group-item"><i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;type</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <form action="profile" method="POST">
+        {% csrf_token %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit info</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="">
+                            <h3>Education</h3>
+                        </label>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Qualification</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="User Qualification" name="qualification"></textarea>
+                        </div>
+                        <label for="">
+                            <h4></h4>Educational info
+                        </label>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">University</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="add your qualification" name="university"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">College</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="add your college name" name="college"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">School</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="add your school name" name="school"></textarea>
+                        </div>
+                        <label for="">
+                            <h4>Contact info</h4>
+                        </label>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Address</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="Tution address in details.." name="address"></textarea>
+                        </div>
+                        <label for="">
+                            <h4>Basic info</h4>
+                        </label>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Type</label><br>
+                            <input type="radio" name="role" value="Student" id="">
+                            <label for="">Student</label>
+                            <input type="radio" name="role" id="" value="Tutor">
+                            <label for="">Tutor</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Gender</label><br>
+                            <input type="radio" name="gender" value='Male' id="">
+                            <label for="">Male</label>
+                            <input type="radio" name="gender" id="" value="Female">
+                            <label for="">Female</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

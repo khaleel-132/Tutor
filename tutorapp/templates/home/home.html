@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>student</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+	.heading {
+		color: darkblue;
+	}
+
+	.btns {
+		color: tomato;
+	}
+
+	.footer {
+		background-color: #343a40;
+	}
+
+	.footer>.container {
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+
+	.card {
+		margin-left: 80px;
+		margin-top: 20px;
+	}
+
+	.card-footer {
+		margin-left: 5px;
+	}
+
+	.column {
+		margin-left: 10px;
+	}
+</style>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">TutionGuru</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'profile' %}"><img src="{% static 'images/profile.png'%}" alt=""
+							height="20px" width="20px">&nbsp;&nbsp;{{user.first_name}}</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="">Home</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Tutors</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Tutions</a>
+				</li>
+				<li class="nav-item dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						About
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">About</a>
+						<a class="dropdown-item" href="#">Contact Us</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Services</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<button class="btn btn-dark" data-target="#newpost" data-toggle="modal"><i
+							class="fa fa-pencil"></i>New post</button>
+				</li>
+				<li class="nav-item active">
+					{% if user.is_authenticated %}
+					<a class="nav-link" href="logout">
+						LogOut
+					</a>
+					{% endif %}
+				</li>
+			</ul>
+
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<div class="row">
+		{% for post in userpost %}
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">{{post.title}}</h4><br>
+				<h6 class="card-subtitle mb-2 text-muted">
+					@<span>{{post.city}},{{post.place}},{{post.place_detail}}</span></h6> <br>
+				<h5 style="color:brown;">Basic Requirements:</h5> <br>
+				<div style="margin-left: 100px;">
+					<div class="row">
+						<h6 class="heading">Category :&nbsp;<h6>{{post.category}}</h6>
+					</div>
+					<div class="row">
+						<h6 class="heading">Class :&nbsp;</h6>
+						<h6>{{post.clas}}</h6>
+					</div>
+					<div class="row">
+						<h6 class="heading">Subjects :&nbsp;</h6>
+						<h6>{{post.subject}}</h6>
+					</div>
+					<div class="row">
+						<h6 class="heading">Tutor Preferences :&nbsp;</h6>
+						<h6>{{post.gender}}</h6>
+					</div>
+					<div class="row">
+						<h6 class="heading">Salary :&nbsp;</h6><b style="color: red;"><span>{{post.salary}}</span>
+							&nbsp;INR</b>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class='column'>
+						<a href="" class="btn btn-dark"><i class="fa fa-user"></i>profile</a>
+					</div>
+					<div class="column">
+						<a href="" class="btn btn-dark text-center"><i class="fa fa-envelope"></i>Message</a>
+					</div>
+					<div class="column">
+						<a href="" class="btn btn-dark"><i class="fa fa-eye"></i>view</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		{% endfor %}
+	</div>
+	{% block content %}
+
+	{% endblock %}
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit your profile</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="">
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="newpost" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit your profile</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="home" method="POST">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="exampleInputEmail1">Select Category</label>
+							<select class="form-control" name="category">
+								<option>Arts</option>
+								<option>English Medium</option>
+								<option>Madrasa Medium</option>
+								<option>Malayalam Medium</option>
+								<option>Professional Skill</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Class</label>
+							<select class="form-control" name="class">
+								<option>LKG</option>
+								<option>UKG</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
+								<option>Plus One</option>
+								<option>Plus Two</option>
+
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Subject</label>
+							<input type="text" class="form-control" name="subject" placeholder="Subject...">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Tution Location</label><br>
+							<label for="exampleInputEmail1">City</label>
+							<input type="text" class="form-control" name="city" placeholder="">
+							<label for="exampleInputEmail1">Place</label>
+							<input type="text" class="form-control" name="place" placeholder=""> <br>
+							<input type="textarea" class="form-control" name="detail"
+								placeholder="Place in details.. (Optional)">
+						</div>
+						<label for="">Tutor Gender</label><br>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Male">
+							<label class="form-check-label" for="inlineRadio1">Male</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female">
+							<label class="form-check-label" for="inlineRadio2">Female</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="Any">
+							<label class="form-check-label" for="inlineRadio3">Any</label>
+						</div>
+						<br>
+						<br>
+						<div class="form-group">
+							<label for="exampleInputEmail1">No of Student</label>
+							<input type="text" class="form-control" name="no" placeholder="how many">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Salary</label>
+							<input type="text" class="form-control" name="salary" placeholder="Salary">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Post Title</label>
+							<textarea class="form-control" rows="5" name="post"
+								placeholder="Write a heding of your post...."></textarea>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Phone no</label>
+							<input type="text" class="form-control" name="phone" placeholder="Contact number">
+						</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer mt-auto py-3">
+		<div class="container">
+			<span class="text-muted">&copy; Tution Guru</span>
+		</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</body>
+
+</html>
